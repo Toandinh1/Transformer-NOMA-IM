@@ -113,7 +113,7 @@ def SC_IM_NO_train(bit1,bit2, SNRdb):
     SNR = 10**(SNRdb/10)
     sigma = np.sqrt(1/SNR)
     noise = sigma*np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
-    H1 = np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
+    H1 = 4*np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
     H2 = np.sqrt(1/2)*(np.random.randn(*tx_sym2.shape)+1j*np.random.randn(*tx_sym2.shape))
     y = H1*tx_sym1 + H2*tx_sym2 + noise
     y_bar = y/ H1
@@ -169,7 +169,7 @@ def SC_IM_NO_test(bit1, bit2, SNRdb):
     SNR = 10**(SNRdb/10)
     sigma = np.sqrt(1/SNR)
     noise = sigma*np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
-    H1 = np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
+    H1 = 4*np.sqrt(1/2)*(np.random.randn(*tx_sym1.shape)+1j*np.random.randn(*tx_sym1.shape))
     H2 = np.sqrt(1/2)*(np.random.randn(*tx_sym2.shape)+1j*np.random.randn(*tx_sym2.shape))
     y = H1*tx_sym1 + H2*tx_sym2 + noise
     y_bar = y/ H1
