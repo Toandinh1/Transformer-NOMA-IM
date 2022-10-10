@@ -277,24 +277,6 @@ def getind(a):
   maxindex = a.argmin()
   b = unravel_index(a.argmin(), a.shape)
   return b[0]
-def funcreturn0and1(x):
-    if x > 0.5:
-        a = 1
-    if x < 0.5:
-        a = 0
-    return a
-def detect_sym(x,N):
-	 for i in range(0, N):
-           for ii in range (0, N):
-        	   if x[i][ii] == 1:
-        		   a = ii
-        		   return a
-def detect_index(x,N):
-	 for i in range(0,N):
-           if x[i][4] == 0:
-        	    a = i
-        	    return a              
-        
 
 with tf.Session() as sess:
 #Training
@@ -357,17 +339,19 @@ with tf.Session() as sess:
       bit_error = 0
       sym_est = np.zeros((N,),dtype=int)
       sign_matrix = np.zeros((test_number,N,M+1))
-      #for i in range(0, test_number):
-            #for ii in range(0, N):
-               # for iii in range (0, M+1):
-                  #  sign_matrix[i,ii,iii] = funcreturn0and1(one_hot_bit1_est[i,ii,iii])
-                
+      
       for i in range(0, test_number):
-            #a = detect_sym(sign_matrix[i,:,:],N)
-            #b = detect_index(sign_matrix[i,:,:],N)
             sym_est[0:c]= detobit(getind(one_hot_bit1_est[i,:,4]))
-            sym_est[c:q]= detobit( getsym(one_hot_bit1_est[i,:,0:4]))
+            sym_est[c:q]= detobit(getsym(one_hot_bit1_est[i,:,0:4]))
             bit_error =bit_error+sum(sym_est!=batch_3[i,])
       BER1[n] = bit_error/(test_number*q)
       print("SNR=", EbNodB_range[n], "BER:", BER1[n])
-               
+      plt.plot(EbNodB_range, BER1, 'bo-',label='DL')
+      #plt.plot(list(EbNodB_range), ber_theory, 'ro-',label='BPSK BER')
+      plt.yscale('log')
+      plt.xlabel('SNR Range')
+      plt.ylabel('BER')
+      plt.grid()
+      plt.legend(loc='upper right',ncol = 1)
+      #plt.savefig('DL_Detection_IM_BER_matplotlib')
+      plt.show()       
